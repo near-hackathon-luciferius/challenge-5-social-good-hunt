@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/challenge-5-social-good-hunt/static/css/main.4ef2b54f.chunk.css",
+    "main.js": "/challenge-5-social-good-hunt/static/js/main.7ffdeaf9.chunk.js",
+    "main.js.map": "/challenge-5-social-good-hunt/static/js/main.7ffdeaf9.chunk.js.map",
+    "runtime-main.js": "/challenge-5-social-good-hunt/static/js/runtime-main.e9bffc88.js",
+    "runtime-main.js.map": "/challenge-5-social-good-hunt/static/js/runtime-main.e9bffc88.js.map",
+    "static/css/2.fc8f8e93.chunk.css": "/challenge-5-social-good-hunt/static/css/2.fc8f8e93.chunk.css",
+    "static/js/2.16dfbc23.chunk.js": "/challenge-5-social-good-hunt/static/js/2.16dfbc23.chunk.js",
+    "static/js/2.16dfbc23.chunk.js.map": "/challenge-5-social-good-hunt/static/js/2.16dfbc23.chunk.js.map",
+    "index.html": "/challenge-5-social-good-hunt/index.html",
+    "static/css/2.fc8f8e93.chunk.css.map": "/challenge-5-social-good-hunt/static/css/2.fc8f8e93.chunk.css.map",
+    "static/css/main.4ef2b54f.chunk.css.map": "/challenge-5-social-good-hunt/static/css/main.4ef2b54f.chunk.css.map",
+    "static/js/2.16dfbc23.chunk.js.LICENSE.txt": "/challenge-5-social-good-hunt/static/js/2.16dfbc23.chunk.js.LICENSE.txt",
+    "static/media/404.6fa35088.jpg": "/challenge-5-social-good-hunt/static/media/404.6fa35088.jpg",
+    "static/media/App.css": "/challenge-5-social-good-hunt/static/media/Inter-Regular.9cd7588f.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e9bffc88.js",
+    "static/css/2.fc8f8e93.chunk.css",
+    "static/js/2.16dfbc23.chunk.js",
+    "static/css/main.4ef2b54f.chunk.css",
+    "static/js/main.7ffdeaf9.chunk.js"
+  ]
+}
