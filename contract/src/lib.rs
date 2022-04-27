@@ -25,6 +25,7 @@ use near_contract_standards::fungible_token::resolver::FungibleTokenResolver;
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::{LazyOption, UnorderedSet, Vector};
 use near_sdk::json_types::U128;
+use near_sdk::serde::{Serialize, Deserialize};
 use near_sdk::{env, log, near_bindgen, AccountId, Balance, PanicOnDefault, PromiseOrValue,
                require, Promise};
 
@@ -62,6 +63,32 @@ impl SocialDeed {
     }
 }
 
+#[derive(Deserialize, Serialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct SerializableDeed {
+    id: u64,
+    author: AccountId,
+    title: String,
+    description: String,
+    proof: String,
+    creditors: u64,
+    is_creditor: bool
+}
+
+impl SerializableDeed {
+    pub fn new(
+        id: u64,
+        author: AccountId,
+        title: String,
+        description: String,
+        proof: String,
+        creditors: u64,
+        is_creditor: bool
+    ) -> Self{
+        Self { id, author, title, description, proof, creditors, is_creditor }
+    }
+}
+
 pub fn refund_deposit_to_account(storage_used: u64, account_id: AccountId) {
     let required_cost = env::storage_byte_cost() * Balance::from(storage_used);
     let attached_deposit = env::attached_deposit();
@@ -94,7 +121,7 @@ pub fn refund_deposit(storage_used: u64) {
     refund_deposit_to_account(storage_used, env::predecessor_account_id())
 }
 
-const DATA_IMAGE_SVG_NEAR_ICON: &str = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 288 288'%3E%3Cg id='l' data-name='l'%3E%3Cpath d='M187.58,79.81l-30.1,44.69a3.2,3.2,0,0,0,4.75,4.2L191.86,103a1.2,1.2,0,0,1,2,.91v80.46a1.2,1.2,0,0,1-2.12.77L102.18,77.93A15.35,15.35,0,0,0,90.47,72.5H87.34A15.34,15.34,0,0,0,72,87.84V201.16A15.34,15.34,0,0,0,87.34,216.5h0a15.35,15.35,0,0,0,13.08-7.31l30.1-44.69a3.2,3.2,0,0,0-4.75-4.2L96.14,186a1.2,1.2,0,0,1-2-.91V104.61a1.2,1.2,0,0,1,2.12-.77l89.55,107.23a15.35,15.35,0,0,0,11.71,5.43h3.13A15.34,15.34,0,0,0,216,201.16V87.84A15.34,15.34,0,0,0,200.66,72.5h0A15.35,15.35,0,0,0,187.58,79.81Z'/%3E%3C/g%3E%3C/svg%3E";
+const DATA_IMAGE_SVG_NEAR_ICON: &str = "data:image/svg+xml,%3C?xml version='1.0' encoding='utf-8'?%3E %3C!-- Svg Vector Icons : http://www.onlinewebfonts.com/icon --%3E %3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E %3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1000 1000' enable-background='new 0 0 1000 1000' xml:space='preserve'%3E %3Cmetadata%3E Svg Vector Icons : http://www.onlinewebfonts.com/icon %3C/metadata%3E %3Cg%3E%3Cg transform='translate(0.000000,511.000000) scale(0.100000,-0.100000)'%3E%3Cpath d='M4627.9,4997.8c-783.1-81.8-1539.6-415.1-2122.3-932.3c-472.3-419.1-848.5-977.3-1053-1564.1c-392.6-1128.6-241.3-2292,449.8-3451.3c300.6-503,697.2-1005.9,1543.7-1954.6c711.5-797.4,1220.6-1425.1,1443.5-1778.8c92-143.1,128.8-143.1,222.9,6.1c102.2,161.5,523.4,713.6,750.4,985.5c118.6,141.1,439.6,509.1,713.5,817.8c703.3,793.3,954.8,1095.9,1241.1,1494.6c707.4,989.6,1030.5,2040.5,922.1,3019.9c-184,1686.8-1441.4,3032.1-3103.7,3318.4C5361.9,5005.9,4881.4,5024.3,4627.9,4997.8z M4227.1,3073.8c206.5-42.9,433.4-169.7,609.3-341.4l161.5-157.4l165.6,159.5c253.5,241.3,535.7,361.9,848.5,361.9c639.9,0,1153.1-537.7,1155.2-1206.3c0-331.2-102.2-682.9-318.9-1104.1C6521.2,150,5961-424.5,5259.7-841.6c-120.6-71.6-237.2-130.9-261.7-130.9c-22.5,0-149.3,65.4-280.1,145.2C3785.5-263,3139.4,532.4,2894.1,1419.7c-71.6,253.5-71.6,642-2,856.7C3082.2,2853,3648.5,3192.4,4227.1,3073.8z'/%3E%3C/g%3E%3C/g%3E %3C/svg%3E";
 
 #[near_bindgen]
 impl Contract {
@@ -107,12 +134,12 @@ impl Contract {
             total_supply,
             FungibleTokenMetadata {
                 spec: FT_METADATA_SPEC.to_string(),
-                name: "Example NEAR fungible token".to_string(),
-                symbol: "EXAMPLE".to_string(),
+                name: "A non-transferable social reputation token.".to_string(),
+                symbol: "DEED".to_string(),
                 icon: Some(DATA_IMAGE_SVG_NEAR_ICON.to_string()),
                 reference: None,
                 reference_hash: None,
-                decimals: 24,
+                decimals: 0,
             },
         )
     }
@@ -190,8 +217,8 @@ impl Contract {
         
         let title = "Donation to all users".to_string();
         let deposit = (env::attached_deposit() as f64)/(10u128.pow(24) as f64);
-        let description = format!("{} donated {} NEAR to al users. Thank you very much!", &env::predecessor_account_id(), deposit);
-        self.deeds.push(&SocialDeed::new(self.deeds.len(), env::predecessor_account_id(), title, description, "https://explorer.testnet.near.org/accounts/social-bounty.cryptosketches.testnet".into()));
+        let description = format!("{} donated {} NEAR to all users. Thank you very much!", &env::predecessor_account_id(), deposit);
+        self.deeds.push(&SocialDeed::new(self.deeds.len(), env::predecessor_account_id(), title, description, "https://gifimage.net/wp-content/uploads/2017/10/donation-gif-10.gif".into()));
         self.donatable_accounts.insert(&env::predecessor_account_id());
 
         let remaining = calculate_and_check_deposit(env::storage_usage() - initial_storage_usage);
@@ -204,9 +231,34 @@ impl Contract {
             if share > 10u128.pow(22){
                 let donation = (share as f64)/(10u128.pow(24) as f64);
                 env::log_str(format!("Donated {} NEAR to {}.", donation, donatable).as_str());
-                Promise::new(env::current_account_id()).transfer(share);
+                Promise::new(donatable).transfer(share);
             }
         }
+    }
+
+    pub fn is_registered(self, account_id: AccountId) -> bool{
+        self.token.accounts.contains_key(&account_id)
+    }
+
+    pub fn get_deeds_count(self) -> u64{
+        self.deeds.len()
+    }
+
+    pub fn social_deeds(&self, creditor_id: AccountId, from_index: Option<U128>, limit: Option<u64>) -> Vec<SerializableDeed> {
+        let start_index: u128 = from_index.map(From::from).unwrap_or_default();
+        require!(
+            (self.deeds.len() as u128) > start_index,
+            "Out of bounds, please use a smaller from_index."
+        );
+        let limit = limit.map(|v| v as usize).unwrap_or(usize::MAX);
+        require!(limit != 0, "Cannot provide limit of 0.");
+        self.deeds
+            .iter()
+            .skip(start_index as usize)
+            .take(limit)
+            .map(|deed| SerializableDeed::new(deed.id, deed.author, deed.title, deed.description, deed.proof, 
+                                                           deed.creditors.len(), deed.creditors.contains(&creditor_id)))
+            .collect()
     }
 
     fn on_account_closed(&mut self, account_id: AccountId, balance: Balance) {
@@ -585,5 +637,54 @@ mod tests {
         contract.donate();
         
         assert_eq!(get_logs(), ["Donated 0.6641733333333333 NEAR to bob.", "Donated 0.33208666666666664 NEAR to fargo."], "Expected a donation log.");
+    }
+    
+
+    #[test]
+    fn test_creditors_calculation() {
+        let mut context = get_context(accounts(2));
+        testing_env!(context.build());
+        let mut contract = Contract::new_default_meta(accounts(2).into(), TOTAL_SUPPLY.into());
+        testing_env!(context
+            .storage_usage(env::storage_usage())
+            .attached_deposit(SAFE_STORAGE_COST)
+            .predecessor_account_id(accounts(1))
+            .build());
+        // Paying for account registration, aka storage deposit
+        contract.storage_deposit(None, None);
+        contract.add_deed(accounts(1), "title".into(), "description".into(), "proof".into());
+
+        testing_env!(context
+            .storage_usage(env::storage_usage())
+            .attached_deposit(SAFE_STORAGE_COST)
+            .predecessor_account_id(accounts(5))
+            .build());
+        // Paying for account registration, aka storage deposit
+        contract.storage_deposit(None, None);
+        contract.add_deed(accounts(5), "title".into(), "description".into(), "proof".into());
+        contract.credit(0);
+
+        testing_env!(context
+            .storage_usage(env::storage_usage())
+            .attached_deposit(SAFE_STORAGE_COST)
+            .predecessor_account_id(accounts(3))
+            .build());
+        // Paying for account registration, aka storage deposit
+        contract.storage_deposit(None, None);
+        contract.credit(0);
+        contract.credit(1);
+
+        testing_env!(context
+            .storage_usage(env::storage_usage())
+            .account_balance(env::account_balance())
+            .is_view(true)
+            .attached_deposit(0)
+            .build());
+        // Paying for account registration, aka storage deposit
+        let deeds = contract.social_deeds(accounts(5), None, Some(2u64));
+        let deed = deeds.first().unwrap();
+        
+        //This is always 0 - probabaly a mistake on my side
+        assert_eq!(deed.creditors, 2, "creditors should be counted correctly.");
     }
 }

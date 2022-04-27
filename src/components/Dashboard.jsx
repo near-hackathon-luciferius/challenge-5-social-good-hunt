@@ -20,9 +20,9 @@ const Dashboard = ({version, currentUser}) => {
                       This site yould then provide tools to check whether a specific webpage has the rights to use
                       the artwork.
                   </p>
-                 <h5>Head over to <Link className="menu-item" to="/collection">your collection</Link> to mint 
-                     you first artwork or go to <Link className="menu-item" to="/marketplace">the marketplace</Link> to
-                     discover what others created.
+                 <h5>Head over <Link className="menu-item" to="/publish">here</Link> to publish your first social 
+                     deed. Or look at social deeds others have published so far <Link className="menu-item" to="/overview">here</Link>.
+                     Lastly you can <Link className="menu-item" to="/donate">donate</Link> NEAR to all DEED holders and automatically create a deed with that.
                  </h5>
              </>
 }

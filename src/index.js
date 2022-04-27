@@ -43,9 +43,9 @@ async function initContract() {
     nearConfig.contractName,
     {
       // View methods are read-only – they don't modify the state, but usually return some value
-      viewMethods: ['nft_supply_for_owner', 'nft_tokens_for_owner', 'nft_total_supply', 'nft_tokens'],
+      viewMethods: ['is_registered', 'storage_balance_bounds', 'get_deeds_count', 'social_deeds'],
       // Change methods can modify the state, but you don't receive the returned value when called
-      changeMethods: ['nft_mint'],
+      changeMethods: ['storage_deposit', 'add_deed', 'credit', 'donate'],
       // Sender is the account ID to initialize transactions.
       // getAccountId() will return empty string if user is still unauthorized
       sender: walletConnection.getAccountId(),

@@ -40,7 +40,7 @@ code {
 
 span.important {
     font-size: 1.9rem;
-    color: #FF585D;
+    color: #5cc447;
 }
 
 .claim-inputs {
@@ -73,7 +73,7 @@ span.important {
 }
 
 .margin_button {
-    margin-right: 10px;
+    margin-left: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
 }

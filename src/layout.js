@@ -12,15 +12,19 @@ const Layout = ({currentUser, signIn, signOut, clearMessage, message}) => {
     <div id="App">
         <Menu pageWrapId={ "page-wrapper" } outerContainerId={ "App" }>
           <Link className="menu-item" to="/">
-            Dashboard
+            Home
           </Link>
 
-          <Link className="menu-item" to="/collection">
-            My Collection
+          <Link className="menu-item" to="/publish">
+            Publish Deeds
           </Link>
 
-          <Link className="menu-item" to="/marketplace">
-            Marketplace
+          <Link className="menu-item" to="/overview">
+            Deed Feed
+          </Link>
+
+          <Link className="menu-item" to="/donate">
+            Donate
           </Link>
         </Menu>
         <main id="page-wrapper">
