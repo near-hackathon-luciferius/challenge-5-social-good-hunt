@@ -25,5 +25,4 @@ jobs:
         git remote set-url origin https://Bearer:${{ secrets.GITHUB_TOKEN }}@github.com/near-hackathon-luciferius/challenge-5-social-good-hunt.git
         npm --no-git-tag-version version 1.0.${{ github.run_number }}
         npm ci
-        cp -r ipfs-patch/. node_modules/nft.storage/src
         npm run deploy --if-present
