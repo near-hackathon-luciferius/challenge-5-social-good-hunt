@@ -49,13 +49,26 @@ const Overview = ({currentUser, contract, onCredit}) => {
                               <p>{deed.is_creditor}</p>
                             </div>
                             <div className="card-action">
-                            {//<span className='important'>{deed.creditors}</span>
-}
-                              <Button onClick={() => onCredit(deed)} small
-                                      tooltip="Give a credit to the deed author."
-                                      className="margin_button">
-                                Credit
-                              </Button>
+                              <span className='important'>{deed.creditors}</span>
+                              {
+                                deed.is_creditor
+                                ?<Button small
+                                        tooltip="You already credited the author."
+                                        className="margin_button disabled">
+                                  Credit
+                                </Button>
+                                : deed.author == currentUser.accountId
+                                  ? <Button small
+                                            tooltip="You cannot credit yourself."
+                                            className="margin_button disabled">
+                                      Credit
+                                    </Button>
+                                  : <Button onClick={() => onCredit(deed)} small
+                                            tooltip="Give a credit to the deed author."
+                                            className="margin_button">
+                                      Credit
+                                    </Button>
+                              }
                             </div>
                           </div>
                       </div>)}          

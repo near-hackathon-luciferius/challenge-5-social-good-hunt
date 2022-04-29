@@ -184,6 +184,7 @@ impl Contract {
         let mut deed = self.deeds.get(id).unwrap();
         assert_ne!(env::predecessor_account_id(), deed.author, "You cannot credit yourself.");
         assert!(deed.creditors.insert(&env::predecessor_account_id()), "{} cannot credit the deed of {} again.", env::predecessor_account_id(), deed.author);
+        self.deeds.replace(id, &deed);
         let memo = Some(format!("Social deed of {} credited by {}", deed.author, env::predecessor_account_id().to_string()));
         self.token.internal_transfer(&self.owner, &deed.author, 1u128, memo);
 
@@ -588,7 +589,7 @@ mod tests {
         contract.storage_deposit(None, None);
         contract.donate();
         
-        assert_eq!(get_logs(), ["Donated 0.99626 NEAR to bob."], "Expected a donation log.");
+        assert_eq!(get_logs(), ["Donated 0.9963700000000001 NEAR to bob."], "Expected a donation log.");
     }
     
 
@@ -636,7 +637,7 @@ mod tests {
         contract.storage_deposit(None, None);
         contract.donate();
         
-        assert_eq!(get_logs(), ["Donated 0.6641733333333333 NEAR to bob.", "Donated 0.33208666666666664 NEAR to fargo."], "Expected a donation log.");
+        assert_eq!(get_logs(), ["Donated 0.6642466666666667 NEAR to bob.", "Donated 0.3321233333333333 NEAR to fargo."], "Expected a donation log.");
     }
     
 

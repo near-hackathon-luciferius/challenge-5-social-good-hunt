@@ -9,12 +9,8 @@ export default function SignIn({signIn}) {
       </header>
       <Button small onClick={signIn}>Log in</Button>
       <p>
-          This app demonstrates how to mint nfts in with the NEAR blockchain. While minting
-          the app will ask you to deposite 0.1 NEAR but it acutally only uses roughly 0.01 NEAR.
-          The remaining NEAR that is not used gets refunded on completing the smart contrat call.
-      </p>
-      <p>
-          Go ahead and sign in to try it out!
+          This app was developed for the NEAR Spring hackathon. 
+          In order to use the app you need to sign in with your NEAR wallet.
       </p>
     </>
   );

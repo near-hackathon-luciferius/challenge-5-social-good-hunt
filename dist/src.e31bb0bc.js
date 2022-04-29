@@ -43918,7 +43918,7 @@ function SignIn(_ref) {
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h1", null, "Social Bounty Hunt Homepage")), /*#__PURE__*/_react.default.createElement(_reactMaterialize.Button, {
     small: true,
     onClick: signIn
-  }, "Log in"), /*#__PURE__*/_react.default.createElement("p", null, "This app demonstrates how to mint nfts in with the NEAR blockchain. While minting the app will ask you to deposite 0.1 NEAR but it acutally only uses roughly 0.01 NEAR. The remaining NEAR that is not used gets refunded on completing the smart contrat call."), /*#__PURE__*/_react.default.createElement("p", null, "Go ahead and sign in to try it out!"));
+  }, "Log in"), /*#__PURE__*/_react.default.createElement("p", null, "This app was developed for the NEAR Spring hackathon. In order to use the app you need to sign in with your NEAR wallet."));
 }
 },{"react":"../node_modules/react/index.js","react-materialize":"../node_modules/react-materialize/lib/index.js"}],"../node_modules/react-burger-menu/lib/helpers/baseStyles.js":[function(require,module,exports) {
 'use strict';
@@ -82567,7 +82567,7 @@ const Dashboard = _ref => {
     version,
     currentUser
   } = _ref;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h1", null, "NEAR Challenge #3 - Social Bounty Hunt - ", version)), /*#__PURE__*/_react.default.createElement("p", null, "This app demonstrates how to mint nfts in with the NEAR blockchain. While minting the app will ask you to deposite 0.1 NEAR but it acutally only uses roughly 0.01 NEAR. The remaining NEAR that is not used gets refunded on completing the smart contrat call."), /*#__PURE__*/_react.default.createElement("p", null, "The basic idea was to create a DeviantArt for the NEAR chain. So everyone can mint their own artworks and through the marketplace they can then buy physical and digital products from the minted NFTs. This includes, but is not limited to, buying rights to use the images on their websites. The information, who has rights could be stored in the metadata of the NFTs. This site yould then provide tools to check whether a specific webpage has the rights to use the artwork."), /*#__PURE__*/_react.default.createElement("h5", null, "Head over ", /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h1", null, "NEAR Challenge #3 - Social Bounty Hunt - ", version)), /*#__PURE__*/_react.default.createElement("p", null, "This app was developed for the NEAR Spring hackathon."), /*#__PURE__*/_react.default.createElement("p", null, "Here is how the app works. Everyone can publish the good social deeds they performed in order to earn DEED. They publish they social deed with a description and a proof (for now this must be a link to an image or gif). Others can now credit the social deed that was published. For each credit the author of the social deed gets rewarded with one DEED."), /*#__PURE__*/_react.default.createElement("p", null, "DEED is a non-transferable and therefore non-tradable fungible token. Is represents the users social reputation for his good deeds. But there is a second utility to the token. Users can also donate NEAR to the app. When they do that, the donated NEAR is distributed to all DEED holders proprtional to they DEED amount. The donation itself will automatically create a new deed for the donator."), /*#__PURE__*/_react.default.createElement("p", null, "They idea behind that was, that there are two kinds of users. Those who do good social deeds. Those who want to promote themselfs by donating. For example a new crypto project can donate to the app. With the donation the crypto project would get recognition from all users."), /*#__PURE__*/_react.default.createElement("p", null, "Of course in a real world scenario all users must be KYCed in order to prevent gaming the system by creating a lot of new accounts and accumulating a lot of DEED."), /*#__PURE__*/_react.default.createElement("h5", null, "Head over ", /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     className: "menu-item",
     to: "/publish"
   }, "here"), " to publish your first social deed. Or look at social deeds others have published so far ", /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
@@ -82713,7 +82713,17 @@ const Overview = _ref => {
     className: "card-content"
   }, /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("b", null, "Author: ", deed.author)), /*#__PURE__*/_react.default.createElement("p", null, deed.description), /*#__PURE__*/_react.default.createElement("p", null, deed.is_creditor)), /*#__PURE__*/_react.default.createElement("div", {
     className: "card-action"
-  }, /*#__PURE__*/_react.default.createElement(_reactMaterialize.Button, {
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "important"
+  }, deed.creditors), deed.is_creditor ? /*#__PURE__*/_react.default.createElement(_reactMaterialize.Button, {
+    small: true,
+    tooltip: "You already credited the author.",
+    className: "margin_button disabled"
+  }, "Credit") : deed.author == currentUser.accountId ? /*#__PURE__*/_react.default.createElement(_reactMaterialize.Button, {
+    small: true,
+    tooltip: "You cannot credit yourself.",
+    className: "margin_button disabled"
+  }, "Credit") : /*#__PURE__*/_react.default.createElement(_reactMaterialize.Button, {
     onClick: () => onCredit(deed),
     small: true,
     tooltip: "Give a credit to the deed author.",
@@ -95526,7 +95536,7 @@ App.propTypes = {
 var _default = App;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","big.js":"../node_modules/big.js/big.js","./components/SignIn":"components/SignIn.jsx","./layout":"layout.js","./components/404.jsx":"components/404.jsx","./components/Dashboard.jsx":"components/Dashboard.jsx","./components/Publish.jsx":"components/Publish.jsx","./components/Overview.jsx":"components/Overview.jsx","./components/Donate.jsx":"components/Donate.jsx","./components/Register.jsx":"components/Register.jsx","materialize-css/dist/css/materialize.css":"../node_modules/materialize-css/dist/css/materialize.css","./App.css":"App.css","react-router-dom":"../node_modules/react-router-dom/index.js","../package.json":"../package.json","materialize-css":"../node_modules/materialize-css/dist/js/materialize.js"}],"config.js":[function(require,module,exports) {
-const CONTRACT_NAME = undefined || 'social-bounty.cryptosketches.testnet';
+const CONTRACT_NAME = undefined || 'social-bounty2.cryptosketches.testnet';
 
 function getConfig(env) {
   switch (env) {
@@ -111977,7 +111987,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57798" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56636" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

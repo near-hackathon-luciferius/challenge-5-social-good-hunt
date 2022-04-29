@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || 'social-bounty.cryptosketches.testnet';
+const CONTRACT_NAME = process.env.CONTRACT_NAME || 'social-bounty2.cryptosketches.testnet';
 
 function getConfig(env) {
   switch(env) {
