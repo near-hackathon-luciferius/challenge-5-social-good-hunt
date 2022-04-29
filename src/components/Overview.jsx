@@ -57,7 +57,7 @@ const Overview = ({currentUser, contract, onCredit}) => {
                                         className="margin_button disabled">
                                   Credit
                                 </Button>
-                                : deed.author == currentUser.accountId
+                                : deed.author === currentUser.accountId
                                   ? <Button small
                                             tooltip="You cannot credit yourself."
                                             className="margin_button disabled">
