@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Dashboard = ({version, currentUser}) => {
    return <>
                  <header>
-                   <h1>NEAR Challenge #3 - Social Bounty Hunt - {version}</h1>
+                   <h1>NEAR Challenge #5 - Social Bounty Hunt - {version}</h1>
                  </header>
                   <p>
                       This app was developed for the NEAR Spring hackathon.
